@@ -34,37 +34,29 @@ const getRoundEndTimeText = endRoundDate => {
 	return `${date} в ${time}`;
 };
 
-const getTimeRemaining = endTime => {
-	const t = endTime.getTime() - new Date().getTime();
-	const seconds = Math.floor((t / 1000) % 60);
-	const minutes = Math.floor((t / 1000 / 60) % 60);
-	const hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-	const days = Math.floor(t / (1000 * 60 * 60 * 24));
-
-	const daysRemaining = days ? `${days} д. ` : '';
-	const timeRemaining = `${hours.toString().padStart(2, '0')}:${minutes
-		.toString()
-		.padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-	return {
-		total: t,
-		result: daysRemaining + timeRemaining,
-	};
-};
+let flag = false;
 
 const inputDate = document.createElement('input');
 const button = document.createElement('button');
+const flagButton = document.createElement('button');
 button.textContent = 'SUBMIT';
 const TIME_IN_SECONDS = document.createElement('h1');
 const START_ROUND_TIME = document.createElement('h2');
 const END_ROUND_TIME = document.createElement('h2');
 document.body.append(inputDate, START_ROUND_TIME, TIME_IN_SECONDS, END_ROUND_TIME, button);
+
 button.addEventListener('click', () => {
 	const timeStart = inputDate.value;
 	if (!timeStart) return;
+	const backOffset = 10800000;
+	const offset = new Date().getTimezoneOffset() * 60 * 1000;
+	const localeTimeStart = new Date(new Date(timeStart).getTime() + backOffset + offset);
+
 	const duration = '02:00:00';
-	const endTime = getRoundEndTime(timeStart, duration);
+	const endTime = getRoundEndTime(localeTimeStart, duration);
 	TIME_IN_SECONDS.textContent = endTime;
 	END_ROUND_TIME.textContent = `РАУНД закончится в ${getRoundEndTimeText(endTime)}`;
-	START_ROUND_TIME.textContent = `РАУНД начался в ${getRoundEndTimeText(new Date(timeStart))}`;
+	START_ROUND_TIME.textContent = `РАУНД начался в ${getRoundEndTimeText(
+		new Date(localeTimeStart)
+	)}`;
 });
