@@ -39,24 +39,32 @@ let flag = false;
 const inputDate = document.createElement('input');
 const button = document.createElement('button');
 const flagButton = document.createElement('button');
-button.textContent = 'SUBMIT';
-const TIME_IN_SECONDS = document.createElement('h1');
+const START_ROUND_TIME_L = document.createElement('h2');
 const START_ROUND_TIME = document.createElement('h2');
+const END_ROUND_TIME_L = document.createElement('h2');
 const END_ROUND_TIME = document.createElement('h2');
-document.body.append(inputDate, START_ROUND_TIME, TIME_IN_SECONDS, END_ROUND_TIME, button);
+button.textContent = 'SUBMIT';
+document.body.append(
+	inputDate,
+	START_ROUND_TIME,
+	START_ROUND_TIME_L,
+	END_ROUND_TIME,
+	END_ROUND_TIME_L,
+	button
+);
 
 button.addEventListener('click', () => {
-	const timeStart = inputDate.value;
-	if (!timeStart) return;
-	const backOffset = 10800000;
+	const timeStartStr = inputDate.value;
+	if (!timeStartStr) return;
 	const offset = new Date().getTimezoneOffset() * 60 * 1000;
-	const localeTimeStart = new Date(new Date(timeStart).getTime() + backOffset + offset);
+	const localeTimeStart = new Date(new Date(timeStartStr).getTime() + offset);
+	const timeStart = new Date(timeStartStr);
 
 	const duration = '02:00:00';
-	const endTime = getRoundEndTime(localeTimeStart, duration);
-	TIME_IN_SECONDS.textContent = endTime;
+	const endTime = getRoundEndTime(timeStart, duration);
+	const endTime_L = getRoundEndTime(localeTimeStart, duration);
+	START_ROUND_TIME.textContent = `РАУНД начался в ${getRoundEndTimeText(timeStart)}`;
+	START_ROUND_TIME_L.textContent = `(L)РАУНД начался в ${getRoundEndTimeText(localeTimeStart)}`;
 	END_ROUND_TIME.textContent = `РАУНД закончится в ${getRoundEndTimeText(endTime)}`;
-	START_ROUND_TIME.textContent = `РАУНД начался в ${getRoundEndTimeText(
-		new Date(localeTimeStart)
-	)}`;
+	END_ROUND_TIME_L.textContent = `(L)РАУНД закончится в ${getRoundEndTimeText(endTime_L)}`;
 });
