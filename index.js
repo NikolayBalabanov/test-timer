@@ -69,9 +69,9 @@ document.body.append(
 	DISPLAY,
 	DISPLAY_L,
 	START_ROUND_TIME,
-	START_ROUND_TIME_L,
-	hr,
 	END_ROUND_TIME,
+	hr,
+	START_ROUND_TIME_L,
 	END_ROUND_TIME_L,
 	button
 );
