@@ -87,11 +87,10 @@ button.addEventListener('click', () => {
 	const duration = '02:00:00';
 	const endTime = getRoundEndTime(timeStart, duration);
 	const endTime_L = getRoundEndTime(localeTimeStart, duration);
-	console.log('endTime', endTime);
-	console.log('endTime_L', endTime_L);
 
 	countdown(endTime, DISPLAY);
 	countdown(endTime_L, DISPLAY_L);
+
 	START_ROUND_TIME.textContent = `РАУНД начался в ${getRoundEndTimeText(timeStart)}`;
 	START_ROUND_TIME_L.textContent = `(L)РАУНД начался в ${getRoundEndTimeText(localeTimeStart)}`;
 	END_ROUND_TIME.textContent = `РАУНД закончится в ${getRoundEndTimeText(endTime)}`;
