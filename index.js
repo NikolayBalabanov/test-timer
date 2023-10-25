@@ -43,8 +43,6 @@ const getTimeRemaining = endTime => {
 	const timeRemaining = `${hours.toString().padStart(2, '0')}:${minutes
 		.toString()
 		.padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-	console.log('rere');
-	console.log('ttt', t);
 	return {
 		total: t,
 		result: daysRemaining + timeRemaining,
@@ -81,10 +79,11 @@ button.addEventListener('click', () => {
 	if (!timeStartStr) return;
 
 	const offset = new Date().getTimezoneOffset() * 60 * 1000;
+	console.log('offset', offset);
 	const localeTimeStart = new Date(new Date(timeStartStr).getTime() + offset);
 	const timeStart = new Date(timeStartStr);
 
-	const duration = '02:00:00';
+	const duration = '04:00:00';
 	const endTime = getRoundEndTime(timeStart, duration);
 	const endTime_L = getRoundEndTime(localeTimeStart, duration);
 
