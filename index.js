@@ -81,21 +81,21 @@ button.addEventListener('click', () => {
 	if (!timeStartStr) return;
 
 	// const localeTimeStart = new Date(new Date(timeStartStr).toGMTString().getTime() + offset);
-	const localeTimeStart = new Date(new Date(timeStartStr).toGMTString());
-	console.log('localeTimeStart', localeTimeStart);
-	const timeStart = new Date(timeStartStr);
+	const UTCTimeStart = new Date(new Date(timeStartStr).toGMTString());
+	console.log('UTCTimeStart', UTCTimeStart);
+	const timeStart = new Date(UTCTimeStart);
 
 	const duration = '04:00:00';
 	const endTime = getRoundEndTime(timeStart, duration);
-	const endTime_L = getRoundEndTime(localeTimeStart, duration);
+	// const endTime_L = getRoundEndTime(UTCTimeStart, duration);
 
 	countdown(endTime, DISPLAY);
-	countdown(endTime_L, DISPLAY_L);
+	// countdown(endTime_L, DISPLAY_L);
 
 	START_ROUND_TIME.textContent = `РАУНД начался в ${getRoundEndTimeText(timeStart)}`;
-	START_ROUND_TIME_L.textContent = `(L)РАУНД начался в ${getRoundEndTimeText(localeTimeStart)}`;
 	END_ROUND_TIME.textContent = `РАУНД закончится в ${getRoundEndTimeText(endTime)}`;
-	END_ROUND_TIME_L.textContent = `(L)РАУНД закончится в ${getRoundEndTimeText(endTime_L)}`;
+	// START_ROUND_TIME_L.textContent = `(L)РАУНД начался в ${getRoundEndTimeText(UTCTimeStart)}`;
+	// END_ROUND_TIME_L.textContent = `(L)РАУНД закончится в ${getRoundEndTimeText(endTime_L)}`;
 });
 
 function countdown(endTime, target) {
