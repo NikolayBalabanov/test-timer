@@ -1,4 +1,6 @@
 const MILLISECONDS_IN_HOUR = 60 * 60 * 1000;
+const offset = new Date().getTimezoneOffset() * 60 * 1000;
+console.log('offset', offset);
 
 const getRoundEndTime = (timeStart, duration) => {
 	let roundHours;
@@ -78,9 +80,9 @@ button.addEventListener('click', () => {
 	const timeStartStr = inputDate.value;
 	if (!timeStartStr) return;
 
-	const offset = new Date().getTimezoneOffset() * 60 * 1000;
-	console.log('offset', offset);
-	const localeTimeStart = new Date(new Date(timeStartStr).getTime() + offset);
+	// const localeTimeStart = new Date(new Date(timeStartStr).toGMTString().getTime() + offset);
+	const localeTimeStart = new Date(new Date(timeStartStr).toGMTString());
+	console.log('localeTimeStart', localeTimeStart);
 	const timeStart = new Date(timeStartStr);
 
 	const duration = '04:00:00';
